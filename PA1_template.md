@@ -6,7 +6,8 @@ output:
 ---
 Setting default knitr options
 
-```{r setoptions}
+
+```r
 knitr::opts_chunk$set(echo= TRUE)
 ```
 
@@ -14,11 +15,13 @@ knitr::opts_chunk$set(echo= TRUE)
 Show any code that is needed to
 
 1. Load the data (i.e. read.csv())
-```{r loaddata}
+
+```r
 activity <- read.csv("activity.csv")
 ```
 2. Process/transform the data (if necessary) into a format suitable for your analysis
-```{r Transformdate}
+
+```r
 activity <- transform(activity, date = as.Date(date, "%Y-%m-%d"))
 ```
 
@@ -27,26 +30,32 @@ activity <- transform(activity, date = as.Date(date, "%Y-%m-%d"))
 For this part of the assignment, you can ignore the missing values in the dataset.
 
 1. Calculate the total number of steps taken per day
-```{r}
+
+```r
 activityDay <- aggregate(steps ~ date, activity, sum)
 ```
 
 2. If you do not understand the difference between a histogram and a barplot, research the difference between them. Make a histogram of the total number of steps taken each day
-```{r}
+
+```r
 hist(activityDay$steps,breaks = 10,xlab = "Steps",main = "Histogram of steps by date")
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+
 3. Calculate and report the mean and median of the total number of steps taken per day
 
-```{r}
+
+```r
 activityDayMean <- aggregate(steps ~ date, activity, mean)
 activityDayMedian <- aggregate(steps ~ date, activity, median)
 par(mar=c(5, 4, 4, 8.1), xpd=TRUE)
 with(activityDayMean,plot(date,steps,type="l",col="red",main="Mean and median steps"))
 with(activityDayMedian,lines(date,steps,type="l",col="blue"))
 legend("topright", inset=c(-0.3,0),lty = c(1, 1, 1), col = c("red", "blue"), legend = c("Mean", "Median"))
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 ## What is the average daily activity pattern?
 1. Make a time series plot (i.e. type="l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
